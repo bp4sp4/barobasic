@@ -18,6 +18,25 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "한평생 바로기업 정책자금",
   description: "한평생 바로기업 정책자금",
+  openGraph: {
+    title: "한평생 바로기업 정책자금",
+    description: "한평생 바로기업 정책자금",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "한평생 바로기업 정책자금",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "한평생 바로기업 정책자금",
+    description: "한평생 바로기업 정책자금",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function RootLayout({
