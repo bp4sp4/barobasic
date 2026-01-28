@@ -628,6 +628,7 @@
   background-color: #fef08a;
   font-weight: 600;
   padding: 2px 0;
+  display: inline;
 }
 
 /* 필터 그룹 */

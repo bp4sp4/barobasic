@@ -424,9 +424,13 @@ export default function AdminPage() {
     // 검색 텍스트 필터 (이름, 연락처, 취득사유, 메모)
     if (searchText) {
       const searchLower = searchText.toLowerCase();
+      // 연락처는 하이픈 제거하고 비교
+      const contactWithoutHyphen = consultation.contact.replace(/-/g, '');
+      const searchWithoutHyphen = searchText.replace(/-/g, '');
+      
       const matchesSearch = 
         consultation.name.toLowerCase().includes(searchLower) ||
-        consultation.contact.toLowerCase().includes(searchLower) ||
+        contactWithoutHyphen.toLowerCase().includes(searchWithoutHyphen.toLowerCase()) ||
         (consultation.reason && consultation.reason.toLowerCase().includes(searchLower)) ||
         (consultation.memo && consultation.memo.toLowerCase().includes(searchLower));
       if (!matchesSearch) return false;
@@ -485,6 +489,56 @@ export default function AdminPage() {
       part.toLowerCase() === query.toLowerCase() 
         ? <span key={index} className={styles.highlight}>{part}</span>
         : part
+    );
+  };
+
+  // 연락처 하이라이트 함수 (하이픈 무시)
+  const highlightContact = (contact: string, query: string) => {
+    if (!query) return contact;
+    
+    // 검색어에 하이픈이 포함되어 있으면 일반 하이라이트 사용
+    if (query.includes('-')) {
+      return highlightText(contact, query);
+    }
+    
+    // 검색어에서 숫자만 추출
+    const searchNumbers = query.replace(/[^0-9]/g, '');
+    if (searchNumbers.length < 3) return contact;
+    
+    // 연락처를 숫자만 추출
+    const contactNumbers = contact.replace(/-/g, '');
+    
+    // 검색어가 포함되어 있는지 확인
+    const matchIndex = contactNumbers.toLowerCase().indexOf(searchNumbers.toLowerCase());
+    if (matchIndex === -1) return contact;
+    
+    // 하이픈 포함한 원본에서 매칭 위치 찾기
+    let currentNumberIndex = 0;
+    let startPos = -1;
+    let endPos = -1;
+    
+    for (let i = 0; i < contact.length; i++) {
+      if (contact[i] !== '-') {
+        if (currentNumberIndex === matchIndex && startPos === -1) {
+          startPos = i;
+        }
+        if (currentNumberIndex === matchIndex + searchNumbers.length - 1) {
+          endPos = i + 1;
+          break;
+        }
+        currentNumberIndex++;
+      }
+    }
+    
+    if (startPos === -1 || endPos === -1) return contact;
+    
+    // 하이라이트 적용
+    return (
+      <>
+        {contact.substring(0, startPos)}
+        <span className={styles.highlight}>{contact.substring(startPos, endPos)}</span>
+        {contact.substring(endPos)}
+      </>
     );
   };
 
@@ -703,7 +757,7 @@ export default function AdminPage() {
                       />
                     </td>
                     <td>{highlightText(consultation.name, searchText)}</td>
-                    <td>{highlightText(consultation.contact, searchText)}</td>
+                    <td>{highlightContact(consultation.contact, searchText)}</td>
                     <td>{consultation.education || '-'}</td>
                     <td className={styles.reasonCell}>{highlightText(consultation.reason, searchText)}</td>
                     <td>{consultation.click_source || '-'}</td>
@@ -729,7 +783,7 @@ export default function AdminPage() {
                         onClick={() => openMemoModal(consultation)}
                         title={consultation.memo || '메모 추가...'}
                       >
-                        {consultation.memo || '메모 추가...'}
+                        {consultation.memo ? highlightText(consultation.memo, searchText) : '메모 추가...'}
                       </div>
                     </td>
                     <td>{formatDate(consultation.created_at)}</td>
