@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { name, contact, education, reason, click_source, is_manual_entry } = body;
+    const { name, contact, education, reason, click_source, is_manual_entry, residence } = body;
 
     // 유효성 검사 - 이름과 연락처만 필수
     if (!name || !contact) {
@@ -77,6 +77,7 @@ export async function POST(request: NextRequest) {
           education: education || null,
           reason: reason || null,
           click_source: click_source || null,
+          residence: residence || null,
           status: '상담대기', // 기본 상태
         },
       ])
@@ -280,7 +281,7 @@ export async function PATCH(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { id, is_completed, notes, status, memo, name, contact, education, reason, click_source, subject_cost, manager } = body;
+    const { id, is_completed, notes, status, memo, name, contact, education, reason, click_source, subject_cost, manager, residence } = body;
 
     if (!id) {
       return NextResponse.json({ error: 'ID is required' }, { status: 400 });
@@ -299,6 +300,7 @@ export async function PATCH(request: NextRequest) {
       click_source?: string | null;
       subject_cost?: number | null;
       manager?: string | null;
+      residence?: string | null;
     } = {};
 
     if (typeof is_completed === 'boolean') {
@@ -350,6 +352,9 @@ export async function PATCH(request: NextRequest) {
 
     if (manager !== undefined) {
       updateData.manager = manager || null;
+    }
+    if (residence !== undefined) {
+      updateData.residence = residence || null;
     }
 
     if (Object.keys(updateData).length === 0) {

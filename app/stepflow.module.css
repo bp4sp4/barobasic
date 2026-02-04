@@ -1,3 +1,43 @@
+/* 하단 안내 및 다음 버튼 영역 */
+.infoSection {
+  margin-top: 40px;
+  text-align: center;
+  background: #fff;
+  padding: 0;
+}
+.infoInner {
+  
+  margin: 0 auto;
+  text-align: left;
+}
+.infoItem {
+  margin-bottom: 16px;
+}
+.infoTitle {
+  font-weight: 600;
+  font-size: 25px;
+  margin-bottom: 4px;
+}
+.infoDesc {
+  color: #555;
+  font-size: 18px;
+  margin-left: 8px;
+}
+.infoCall {
+  margin: 24px 0 16px 0;
+  font-weight: 600;
+  font-size: 18px;
+  color: #1d4ed8;
+}
+.infoCallLink {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+.infoNextBtn {
+  width: 240px;
+  font-size: 18px;
+  margin-top: 12px;
+}
 .container {
     min-width: 320px;
     max-width: 640px;

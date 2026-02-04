@@ -18,6 +18,7 @@ interface Consultation {
   status: ConsultationStatus;
   subject_cost: number | null;
   manager: string | null;
+  residence: string | null;
   created_at: string;
 }
 
@@ -30,6 +31,39 @@ export default function AdminPage() {
   const [showEditModal, setShowEditModal] = useState(false);
   const [showSubjectCostModal, setShowSubjectCostModal] = useState(false);
   const [showManagerModal, setShowManagerModal] = useState(false);
+  const [showResidenceModal, setShowResidenceModal] = useState(false);
+  const [residenceText, setResidenceText] = useState('');
+    // 거주지 모달 열기/닫기
+    const openResidenceModal = (consultation: Consultation) => {
+      setSelectedConsultation(consultation);
+      setResidenceText(consultation.residence || '');
+      setShowResidenceModal(true);
+    };
+
+    const closeResidenceModal = () => {
+      setShowResidenceModal(false);
+      setSelectedConsultation(null);
+      setResidenceText('');
+    };
+
+    // 거주지 업데이트
+    const handleUpdateResidence = async () => {
+      if (!selectedConsultation) return;
+      try {
+        const response = await fetch('/api/consultations', {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ id: selectedConsultation.id, residence: residenceText }),
+        });
+        if (!response.ok) throw new Error('거주지 업데이트 실패');
+        closeResidenceModal();
+        fetchConsultations();
+      } catch (error) {
+        alert('거주지 저장에 실패했습니다.');
+      }
+    };
   const [selectedConsultation, setSelectedConsultation] = useState<Consultation | null>(null);
   const [memoText, setMemoText] = useState('');
   const [subjectCostText, setSubjectCostText] = useState('');
@@ -50,7 +84,8 @@ export default function AdminPage() {
     reason: '',
     click_source: '',
     subject_cost: '',
-    manager: ''
+    manager: '',
+    residence: ''
   });
   const router = useRouter();
 
@@ -136,7 +171,8 @@ export default function AdminPage() {
         reason: '',
         click_source: '',
         subject_cost: '',
-        manager: ''
+        manager: '',
+        residence: ''
       });
       setShowAddModal(false);
       fetchConsultations();
@@ -305,7 +341,8 @@ export default function AdminPage() {
         reason: consultation.reason || '',
         click_source: consultation.click_source || '',
         subject_cost: consultation.subject_cost ? consultation.subject_cost.toLocaleString() : '',
-        manager: consultation.manager || ''
+        manager: consultation.manager || '',
+        residence: consultation.residence || ''
       });
       setShowEditModal(true);
     }
@@ -331,6 +368,7 @@ export default function AdminPage() {
           click_source: formData.click_source || null,
           subject_cost: formData.subject_cost ? parseInt(formData.subject_cost.replace(/,/g, '')) : null,
           manager: formData.manager || null,
+          residence: formData.residence || null,
         }),
       });
 
@@ -343,7 +381,8 @@ export default function AdminPage() {
         reason: '',
         click_source: '',
         subject_cost: '',
-        manager: ''
+        manager: '',
+        residence: ''
       });
       setShowEditModal(false);
       setSelectedConsultation(null);
@@ -550,7 +589,7 @@ export default function AdminPage() {
     }
 
     // CSV 형식으로 다운로드
-    const headers = ['이름', '연락처', '최종학력', '취득사유', '유입 경로', '과목비용', '담당자', '메모', '신청일시', '상태'];
+    const headers = ['이름', '연락처', '최종학력', '취득사유', '유입 경로', '과목비용', '담당자', '거주지', '메모', '신청일시', '상태'];
     const csvData = dataToDownload.map(consultation => [
       consultation.name,
       consultation.contact,
@@ -559,6 +598,7 @@ export default function AdminPage() {
       consultation.click_source || '',
       consultation.subject_cost || '',
       consultation.manager || '',
+      consultation.residence || '',
       consultation.memo || '',
       formatDate(consultation.created_at),
       consultation.status || '상담대기중'
@@ -731,6 +771,7 @@ export default function AdminPage() {
                 <th>유입 경로</th>
                 <th>과목비용</th>
                 <th>담당자</th>
+                <th>거주지</th>
                 <th>메모</th>
                 <th>신청일시</th>
                 <th>상태</th>
@@ -774,6 +815,36 @@ export default function AdminPage() {
                         {consultation.manager ? highlightText(consultation.manager, searchText) : '담당자 입력...'}
                       </div>
                     </td>
+                    <td>
+                      <div
+                        className={`${styles.memoCell} ${!consultation.residence ? styles.empty : ''}`}
+                        onClick={() => openResidenceModal(consultation)}
+                        title={consultation.residence || '거주지 입력...'}
+                      >
+                        {consultation.residence ? highlightText(consultation.residence, searchText) : '거주지 입력...'}
+                      </div>
+                    </td>
+                          {/* 거주지 수정 모달 - 항상 최상단에 렌더 */}
+                          {showResidenceModal && selectedConsultation && (
+                            <div className={styles.modalOverlay} onClick={closeResidenceModal}>
+                              <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
+                                <h2 className={styles.modalTitle}>거주지 수정</h2>
+                                <div className={styles.formGroup}>
+                                  <label>거주지</label>
+                                  <input
+                                    type="text"
+                                    value={residenceText}
+                                    onChange={e => setResidenceText(e.target.value)}
+                                    placeholder="거주지 입력"
+                                  />
+                                </div>
+                                <div className={styles.modalActions}>
+                                  <button type="button" className={styles.submitButton} onClick={handleUpdateResidence}>저장</button>
+                                  <button type="button" className={styles.cancelButton} onClick={closeResidenceModal}>취소</button>
+                                </div>
+                              </div>
+                            </div>
+                          )}
                     <td>
                       <div 
                         className={`${styles.memoCell} ${!consultation.memo ? styles.empty : ''}`}
@@ -909,6 +980,15 @@ export default function AdminPage() {
                   value={formData.manager}
                   onChange={(e) => setFormData({ ...formData, manager: e.target.value })}
                   placeholder="담당자 이름 (선택사항)"
+                />
+              </div>
+              <div className={styles.formGroup}>
+                <label>거주지</label>
+                <input
+                  type="text"
+                  value={formData.residence}
+                  onChange={(e) => setFormData({ ...formData, residence: e.target.value })}
+                  placeholder="거주지 (선택사항)"
                 />
               </div>
               <div className={styles.modalActions}>

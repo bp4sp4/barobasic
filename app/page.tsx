@@ -18,6 +18,7 @@ const formatClickSource = (
     youtube: "유튜브",
     kakao: "카카오",
     naver: "네이버",
+    toss: "토스",
   };
 
   const shortSource = sourceMap[utmSource] || utmSource;
@@ -130,21 +131,10 @@ function StepFlowContent({ clickSource }: { clickSource: string }) {
   ].filter(Boolean).length;
   const progress = (filledFields / totalFields) * 100;
 
+
   return (
     <div className={styles.container}>
-      {/* 헤더 - 전체 단계에 표시 */}
       <header className={styles.header}>
-        {false && (
-          <button
-            className={styles.backButton}
-            onClick={() => setStep(step - 1)}
-            aria-label="뒤로가기"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M12.727 3.687C12.8172 3.59153 12.8878 3.47923 12.9346 3.3565C12.9814 3.23377 13.0036 3.10302 12.9999 2.97172C12.9961 2.84042 12.9666 2.71113 12.9129 2.59125C12.8592 2.47136 12.7825 2.36322 12.687 2.273C12.5915 2.18279 12.4792 2.11226 12.3565 2.06544C12.2338 2.01863 12.103 1.99644 11.9717 2.00016C11.8404 2.00387 11.7111 2.03341 11.5912 2.08709C11.4714 2.14077 11.3632 2.21753 11.273 2.313L2.77301 11.313C2.59747 11.4987 2.49966 11.7445 2.49966 12C2.49966 12.2555 2.59747 12.5013 2.77301 12.687L11.273 21.688C11.3626 21.7856 11.4707 21.8643 11.5911 21.9198C11.7114 21.9752 11.8415 22.0062 11.9739 22.0109C12.1063 22.0156 12.2383 21.9939 12.3623 21.9472C12.4863 21.9004 12.5997 21.8295 12.696 21.7386C12.7923 21.6476 12.8696 21.5384 12.9234 21.4173C12.9771 21.2963 13.0063 21.1657 13.0092 21.0333C13.0121 20.9008 12.9886 20.7691 12.9402 20.6458C12.8917 20.5225 12.8193 20.4101 12.727 20.315L4.87501 12L12.727 3.687Z" fill="black"/>
-            </svg>
-          </button>
-        )}
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <Image
             src="/logo.png"
@@ -156,10 +146,48 @@ function StepFlowContent({ clickSource }: { clickSource: string }) {
         </div>
       </header>
       <AnimatePresence mode="wait">
-        {/* STEP 1: 정보 입력 */}
+        {/* STEP 1: 빈 화면 */}
         {step === 1 && (
           <motion.div
             key="step1"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+            className={styles.stepWrapper}
+          >
+            {/* 하단 안내 및 다음 버튼 */}
+            <div className={styles.infoSection}>
+              <div className={styles.infoInner}>
+                <div className={styles.infoItem}>
+                  <div className={styles.infoTitle}>1. 수업료 지원 혜택</div>
+                  <div className={styles.infoDesc}>상담 완료 후 수강료 70% 할인혜택</div>
+                </div>
+                <div className={styles.infoItem}>
+                  <div className={styles.infoTitle}>2. 국가자격증 여부</div>
+                  <div className={styles.infoDesc}>사회복지사 자격증은 보건복지부 발급 국가자격증</div>
+                </div>
+                <div className={styles.infoItem}>
+                  <div className={styles.infoTitle}>3. 온라인 수업</div>
+                  <div className={styles.infoDesc}>모든 수업은 100% 온라인으로 진행</div>
+                </div>
+                <div className={styles.infoCall}>
+                  빠른 전화문의 : <a href="tel:0221354951" className={styles.infoCallLink}>02-2135-4951</a>
+                </div>
+              </div>
+              <button
+                className={styles.bottomButton + ' ' + styles.infoNextBtn}
+                onClick={() => setStep(2)}
+              >
+                다음
+              </button>
+            </div>
+          </motion.div>
+        )}
+        {/* STEP 2: 기존 정보입력 폼 */}
+        {step === 2 && (
+          <motion.div
+            key="step2"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -311,11 +339,10 @@ function StepFlowContent({ clickSource }: { clickSource: string }) {
             </button>
           </motion.div>
         )}
-
-        {/* STEP 2: 완료 화면 */}
-        {step === 2 && (
+        {/* STEP 3: 완료 화면 */}
+        {step === 3 && (
           <motion.div
-            key="step2"
+            key="step3"
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             className={styles.stepWrapper}
@@ -383,6 +410,8 @@ function StepFlowContent({ clickSource }: { clickSource: string }) {
           </div>
         </div>
       )}
+
+     
     </div>
   );
 }
