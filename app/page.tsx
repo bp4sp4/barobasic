@@ -53,6 +53,7 @@ function StepFlowContent({ clickSource }: { clickSource: string }) {
     name: '', // 이름
     contact: '', // 연락처
     education: '', // 최종학력
+    hope_course: '', // 희망과정
     reason: '', // 취득사유
   });
   const [loading, setLoading] = useState(false);
@@ -100,6 +101,7 @@ function StepFlowContent({ clickSource }: { clickSource: string }) {
           name: formData.name,
           contact: formData.contact,
           education: formData.education,
+          hope_course: formData.hope_course,
           reason: formData.reason,
           click_source: clickSource,
         }),
@@ -119,14 +121,15 @@ function StepFlowContent({ clickSource }: { clickSource: string }) {
     }
   };
 
-  const isFormValid = formData.name.length > 0 && formData.contact.replace(/[-\s]/g, '').length >= 10 && !contactError && formData.education.length > 0 && formData.reason.length > 0 && privacyAgreed;
+  const isFormValid = formData.name.length > 0 && formData.contact.replace(/[-\s]/g, '').length >= 10 && !contactError && formData.education.length > 0 && formData.hope_course.length > 0 && formData.reason.length > 0 && privacyAgreed;
 
   // 프로그레스 계산
-  const totalFields = 4;
+  const totalFields = 5;
   const filledFields = [
     formData.name.length > 0,
     formData.contact.replace(/[-\s]/g, '').length >= 10 && !contactError,
     formData.education.length > 0,
+    formData.hope_course.length > 0,
     formData.reason.length > 0,
   ].filter(Boolean).length;
   const progress = (filledFields / totalFields) * 100;
@@ -175,7 +178,7 @@ function StepFlowContent({ clickSource }: { clickSource: string }) {
             </div>
                 <div className={styles.infoItem}>
                   <div className={styles.infoTitle}><div className={styles.infoNumber}>1</div> 수업료 지원 혜택</div>
-                  <div className={styles.infoDesc}>상담 완료 후 수강료 70% 할인혜택</div>
+                  <div className={styles.infoDesc}>상담 완료 후 수강료 지원 혜택</div>
                 </div>
                 <div className={styles.infoItem}>
                   <div className={styles.infoTitle}><div className={styles.infoNumber}>2</div> 국가자격증 여부</div>
@@ -302,6 +305,19 @@ function StepFlowContent({ clickSource }: { clickSource: string }) {
             )}
 
             {formData.education.length > 0 && (
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className={styles.inputGroup}>
+                <label className={styles.inputLabel}>희망과정을 입력해주세요</label>
+                <input
+                  type="text"
+                  placeholder="예: 사회복지사 2급, 평생교육사 등"
+                  className={styles.inputField}
+                  value={formData.hope_course}
+                  onChange={(e) => setFormData({ ...formData, hope_course: e.target.value })}
+                />
+              </motion.div>
+            )}
+
+            {formData.hope_course.length > 0 && (
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className={styles.inputGroup}>
                 <label className={styles.inputLabel}>취득사유가 어떻게 되시나요?</label>
                 <input

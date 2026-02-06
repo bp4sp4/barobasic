@@ -12,6 +12,7 @@ interface Consultation {
   name: string;
   contact: string;
   education: string;
+  hope_course: string | null;
   reason: string;
   click_source: string | null;
   memo: string | null;
@@ -81,6 +82,7 @@ export default function AdminPage() {
     name: '',
     contact: '',
     education: '',
+    hope_course: '',
     reason: '',
     click_source: '',
     subject_cost: '',
@@ -168,6 +170,7 @@ export default function AdminPage() {
         name: '',
         contact: '',
         education: '',
+        hope_course: '',
         reason: '',
         click_source: '',
         subject_cost: '',
@@ -338,6 +341,7 @@ export default function AdminPage() {
         name: consultation.name,
         contact: consultation.contact,
         education: consultation.education || '',
+        hope_course: consultation.hope_course || '',
         reason: consultation.reason || '',
         click_source: consultation.click_source || '',
         subject_cost: consultation.subject_cost ? consultation.subject_cost.toLocaleString() : '',
@@ -378,6 +382,7 @@ export default function AdminPage() {
         name: '',
         contact: '',
         education: '',
+        hope_course: '',
         reason: '',
         click_source: '',
         subject_cost: '',
@@ -764,11 +769,12 @@ export default function AdminPage() {
                     onChange={toggleSelectAll}
                   />
                 </th>
+                <th>유입 경로</th>
                 <th>이름</th>
                 <th>연락처</th>
                 <th>최종학력</th>
+                <th>희망과정</th>
                 <th>취득사유</th>
-                <th>유입 경로</th>
                 <th>과목비용</th>
                 <th>담당자</th>
                 <th>거주지</th>
@@ -794,11 +800,12 @@ export default function AdminPage() {
                         onChange={() => toggleSelect(consultation.id)}
                       />
                     </td>
+                    <td>{highlightText(consultation.click_source, searchText) || '-'}</td>
                     <td>{highlightText(consultation.name, searchText)}</td>
                     <td>{highlightContact(consultation.contact, searchText)}</td>
                     <td>{consultation.education || '-'}</td>
+                    <td>{consultation.hope_course || '-'}</td>
                     <td className={styles.reasonCell}>{highlightText(consultation.reason, searchText)}</td>
-                    <td>{highlightText(consultation.click_source, searchText) || '-'}</td>
                     <td>
                       <div 
                         className={`${styles.memoCell} ${!consultation.subject_cost ? styles.empty : ''}`}
@@ -945,6 +952,15 @@ export default function AdminPage() {
                   <option value="대학교 졸업">대학교 졸업</option>
                   <option value="대학원 이상">대학원 이상</option>
                 </select>
+              </div>
+              <div className={styles.formGroup}>
+                <label>희망과정</label>
+                <input
+                  type="text"
+                  value={formData.hope_course}
+                  onChange={(e) => setFormData({ ...formData, hope_course: e.target.value })}
+                  placeholder="희망과정을 입력하세요 (선택사항)"
+                />
               </div>
               <div className={styles.formGroup}>
                 <label>취득사유</label>
