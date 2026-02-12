@@ -79,73 +79,149 @@
 .container {
   min-height: 100vh;
   background: #f9fafb;
-  padding: 32px;
+  padding: 24px;
 }
 
-.header {
+/* 탭 섹션 */
+.tabSection {
   display: flex;
-  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
   background: white;
-  padding: 24px 32px;
-  border-radius: 16px;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
-  gap: 20px;
-  flex-wrap: wrap;
+  padding: 16px 24px;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  margin-bottom: 16px;
+}
+
+.tabButtons {
+  display: flex;
+  gap: 8px;
+  background: #f2f4f6;
+  padding: 4px;
+  border-radius: 10px;
+}
+
+.tabButton {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: transparent;
+  color: #6b7684;
+  transition: all 0.2s;
+}
+
+.tabButton:hover {
+  color: #191f28;
+}
+
+.tabButtonActive {
+  background: white;
+  color: #191f28;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.tabActions {
+  display: flex;
+  gap: 8px;
+}
+
+/* 제목 섹션 */
+.titleSection {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding: 0 4px;
 }
 
 .title {
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 700;
   color: #191f28;
-  white-space: nowrap;
 }
 
-.filterRow {
+.count {
+  font-size: 16px;
+  font-weight: 600;
+  color: #3182f6;
+  background: #eff6ff;
+  padding: 4px 12px;
+  border-radius: 8px;
+}
+
+/* 컨트롤 섹션 */
+.controlSection {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  margin-bottom: 16px;
+}
+
+.filterArea {
   display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f2f4f6;
+}
+
+.searchGroup {
+  width: 100%;
+}
+
+.filterGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 12px;
   align-items: center;
-  
-  margin-right: 12px;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
-.headerActions {
-  display: flex;
-  gap: 8px;
-  justify-content: flex-end;
-  white-space: nowrap;
-}
-
 .button {
-  padding: 12px 20px;
-  border-radius: 12px;
+  padding: 10px 18px;
+  border-radius: 10px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   border: none;
   transition: all 0.2s;
+  white-space: nowrap;
 }
 
 .refreshButton {
   composes: button;
   background: #f2f4f6;
-  color: #4e5968;
+  color: #6b7684;
+  font-size: 13px;
 }
 
 .refreshButton:hover {
   background: #e5e8eb;
+  color: #191f28;
 }
 
 .logoutButton {
   composes: button;
-  background: #f2f4f6;
+  background: white;
   color: #f04452;
+  border: 1px solid #fee;
+  font-size: 13px;
 }
 
 .logoutButton:hover {
   background: #fee;
+  border-color: #fdd;
 }
 
 .addButton {
@@ -156,38 +232,43 @@
 
 .addButton:hover {
   background: #1b64da;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(49, 130, 246, 0.3);
 }
 
 .editButton {
   composes: button;
-  background: #3182f6;
-  color: white;
+  background: white;
+  color: #3182f6;
+  border: 1px solid #3182f6;
 }
 
 .editButton:hover {
-  background: #1b64da;
+  background: #eff6ff;
 }
 
 .deleteButton {
   composes: button;
-  background: #f04452;
-  color: white;
-  font-weight: 700;
+  background: white;
+  color: #f04452;
+  border: 1px solid #fee;
 }
 
 .deleteButton:hover {
-  background: #d63546;
+  background: #fee;
+  border-color: #fdd;
 }
 
 .excelButton {
   composes: button;
   background: #10b981;
   color: white;
-  font-weight: 600;
 }
 
 .excelButton:hover {
   background: #059669;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 }
 
 .bulkActions {
@@ -262,19 +343,52 @@
   color: #92400e;
 }
 
-.table .statusSelect.status보류 {
-  background: #e5e7eb;
-  color: #374151;
-}
-
-.table .statusSelect.status등록대기 {
+.table .statusSelect.status실습처배정 {
   background: #bae6fd;
   color: #0369a1;
 }
 
-.table .statusSelect.status등록완료 {
+.table .statusSelect.status취업처연계 {
+  background: #dbeafe;
+  color: #0c4a6e;
+}
+
+.table .statusSelect.status완료 {
   background: #d1fae5;
   color: #065f46;
+}
+
+/* 구법/신법 셀렉트 스타일 */
+.studyMethodSelect {
+  padding: 8px 12px;
+  font-size: 13px;
+  border-radius: 8px;
+  font-weight: 600;
+  background: #f2f4f6;
+  border: 1px solid transparent;
+  color: #4e5968;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-width: 100px;
+}
+
+.studyMethodSelect:hover {
+  background: #e5e8eb;
+}
+
+.studyMethodSelect.studyMethod구법 {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.studyMethodSelect.studyMethod신법 {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.studyMethodSelect.studyMethod구법Plus신법 {
+  background: #e9d5ff;
+  color: #6b21a8;
 }
 
 .bulkUpdateButton {
@@ -418,17 +532,17 @@
   color: #92400e;
 }
 
-.status보류 {
-  background: #e5e7eb;
-  color: #374151;
-}
-
-.status등록대기 {
+.status실습처배정 {
   background: #bae6fd;
   color: #0369a1;
 }
 
-.status등록완료 {
+.status취업처연계 {
+  background: #dbeafe;
+  color: #0c4a6e;
+}
+
+.status완료 {
   background: #d1fae5;
   color: #065f46;
 }
@@ -645,76 +759,75 @@
   box-shadow: 0 -8px 0 0 #ffe066 inset;
 }
 
-/* 필터 그룹 */
-.filterGroup {
-  flex: 0 0 auto;
-  min-width: 180px;
-}
-
-.filterGroup:first-child {
-  min-width: 300px;
-}
-
-.filterGroup:has(input[type="date"]) {
-  min-width: 160px;
-}
-
+/* 검색 및 필터 입력 */
 .searchInput {
   width: 100%;
-  padding: 12px 16px;
+  padding: 12px 16px 12px 40px;
   border: 1px solid #e5e8eb;
-  border-radius: 12px;
+  border-radius: 10px;
   font-size: 14px;
   transition: all 0.2s;
+  background: #fafbfc url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%238b95a1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>') no-repeat 14px center;
 }
 
 .searchInput:focus {
   outline: none;
   border-color: #3182f6;
-  box-shadow: 0 0 0 3px rgba(49, 130, 246, 0.1);
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(49, 130, 246, 0.08);
 }
 
 .filterSelect {
   width: 100%;
-  padding: 12px 16px;
+  padding: 10px 14px;
   border: 1px solid #e5e8eb;
-  border-radius: 12px;
-  font-size: 14px;
+  border-radius: 10px;
+  font-size: 13px;
   background: white;
   cursor: pointer;
   transition: all 0.2s;
+  color: #4e5968;
+}
+
+.filterSelect:hover {
+  border-color: #d1d6db;
 }
 
 .filterSelect:focus {
   outline: none;
   border-color: #3182f6;
-  box-shadow: 0 0 0 3px rgba(49, 130, 246, 0.1);
+  box-shadow: 0 0 0 3px rgba(49, 130, 246, 0.08);
 }
 
 .dateInput {
   width: 100%;
-  padding: 12px 16px;
+  padding: 10px 14px;
   border: 1px solid #e5e8eb;
-  border-radius: 12px;
-  font-size: 14px;
+  border-radius: 10px;
+  font-size: 13px;
   background: white;
   cursor: pointer;
   transition: all 0.2s;
+  color: #4e5968;
+}
+
+.dateInput:hover {
+  border-color: #d1d6db;
 }
 
 .dateInput:focus {
   outline: none;
   border-color: #3182f6;
-  box-shadow: 0 0 0 3px rgba(49, 130, 246, 0.1);
+  box-shadow: 0 0 0 3px rgba(49, 130, 246, 0.08);
 }
 
 .clearFilterButton {
-  padding: 12px 20px;
-  background: #f2f4f6;
-  color: #4e5968;
+  padding: 10px 16px;
+  background: #fee;
+  color: #f04452;
   border: none;
-  border-radius: 12px;
-  font-size: 14px;
+  border-radius: 10px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
@@ -722,26 +835,68 @@
 }
 
 .clearFilterButton:hover {
-  background: #e5e8eb;
+  background: #fdd;
 }
 
 @media (max-width: 768px) {
   .container {
+    padding: 12px;
+  }
+
+  .tabSection {
+    flex-direction: column;
+    gap: 12px;
     padding: 16px;
   }
 
-  .header {
+  .tabButtons {
+    width: 100%;
+  }
+
+  .tabButton {
+    flex: 1;
+    padding: 12px 16px;
+    font-size: 13px;
+  }
+
+  .tabActions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .titleSection {
     flex-direction: column;
     align-items: flex-start;
-    padding: 20px;
+    gap: 8px;
+    margin-bottom: 16px;
   }
 
   .title {
     font-size: 20px;
   }
 
+  .count {
+    font-size: 14px;
+  }
+
+  .controlSection {
+    padding: 16px;
+  }
+
+  .filterGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .actionButtons {
+    flex-direction: column;
+  }
+
+  .actionButtons button {
+    width: 100%;
+  }
+
   .modalContent {
-    padding: 28px 24px;
+    padding: 24px 20px;
     max-height: 85vh;
     border-radius: 16px;
   }

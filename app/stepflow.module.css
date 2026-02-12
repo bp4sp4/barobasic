@@ -17,12 +17,19 @@
   color: #3d3d3d;
   font-weight: 600;
   font-size: 18px;
-  
+}
+.infoCall {
+  display: flex;
+  padding: 12px 0;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  align-self: stretch;
+  border-radius: 8px;
+  background: var(--Atomic-Mono-100, #f2f2f2);
 }
 
-
 .infoInner {
-  
   margin: 0 auto;
   text-align: left;
 }
@@ -31,7 +38,6 @@
 }
 .infoTitle {
   display: flex;
-  ;
   gap: 10px;
   font-weight: 600;
   font-size: 25px;
@@ -59,411 +65,543 @@
   margin-top: 12px;
 }
 .container {
-    min-width: 320px;
-    max-width: 640px;
-    margin: 0 auto;
-    min-height: 100vh;
-    background-color: #fff;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-  
-  /* 헤더 */
-  .header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px 24px;
-    position: relative;
-    border-bottom: 1px solid #f2f4f6;
-    border-left: 1px solid #e5e5e5;
-    border-right: 1px solid #e5e5e5;
-  }
-  
-  .backButton {
-    position: absolute;
-    left: 24px;
-    width: 24px;
-    height: 24px;
-    aspect-ratio: 1/1;
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .backButton svg {
-    width: 100%;
-    height: 100%;
-  }
-  
-  .logo {
-    height: 34px;
-    width: auto;
-  }
-  
-  .stepWrapper {
-    padding: 24px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    border-left: 1px solid #e5e5e5;
-    border-right: 1px solid #e5e5e5;
-  }
-  
-  /* 이미지 스타일 */
-  .heroImage {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    border-radius: 0 0 20px 20px;
-  }
-  
-  /* 텍스트 스타일 */
-  .title {
-    font-size: 28px;
-    font-weight: 700;
-    line-height: 1.4;
-    margin-bottom: 48px;
-    color: #191f28;
-    white-space: pre-line;
-  }
-  
-  /* 입력 필드 */
-  .inputGroup {
-    margin-bottom: 20px;
-    animation: fadeIn 0.5s ease;
-  }
-  
-  .inputLabel {
-    display: block;
-    font-size: 18px;
-    font-weight: 600;
-    color: #4e5968;
-    margin-bottom: 8px;
-  }
-  
-  .inputField {
-    width: 100%;
-    border: none;
-    border-bottom: 2px solid #f2f4f6;
-    padding: 8px 0;
-    font-size: 16px;
-    transition: border-color 0.2s;
-  }
-  
-  .inputField:focus {
-    outline: none;
-    border-bottom: 2px solid var(--Blue-500);
-    border-radius: 0;
-  }
-  
-  .errorMessage {
-    color: #f04452;
-    font-size: 14px;
-    margin-top: 8px;
-    margin-bottom: 0;
-  }
-  
-  .checkboxLabel {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 16px;
-    color: #191f28;
-    cursor: pointer;
-    user-select: none;
-  }
-  
-  .checkbox {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    accent-color: var(--Blue-500);
-  }
-  
-  /* 버튼 */
-  .bottomButton {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: calc(100% - 48px);
-    max-width: 592px;
-    height: 56px;
-    background-color: var(--Blue-500);
-    color: #fff;
-    border: none;
-    border-radius: 16px;
-    font-size: 17px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .bottomButton:disabled {
-    background-color: #f2f4f6;
-    color: #b0b8c1;
-    cursor: not-allowed;
-  }
-  
-  /* 기능 리스트 */
-  .featureList {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 48px 0;
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
-  }
-  
-  .featureItem {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-  
-  .featureIcon {
-    width: 24px;
-    height: 24px;
-    aspect-ratio: 1/1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  
-  .featureIcon svg {
-    width: 24px;
-    height: 24px;
-  }
-  
-  .featureText {
-    font-size: 18px;
-    font-weight: 500;
-    color: #191f28;
-    margin: 0;
-    line-height: 1.6;
-  }
-  
-  /* 개인정보처리방침 모달 */
-  .modalOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    padding: 24px;
-  }
-  
-  .modalPrivacy {
-    background-color: #fff;
-    border-radius: 20px;
-    width: 100%;
-    max-width: 500px;
-    max-height: 90vh;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-  
-  .modalPrivacyHeader {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 24px;
-    border-bottom: 1px solid #f2f4f6;
-  }
-  
-  .modalPrivacyTitle {
-    font-size: 20px;
-    font-weight: 700;
-    color: #191f28;
-    margin: 0;
-  }
-  
-  .modalCloseButton {
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #4e5968;
-    padding: 0;
-  }
-  
-  .modalPrivacyContent {
-    flex: 1;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .modalPrivacyScroll {
-    padding: 24px;
-    overflow-y: auto;
-    flex: 1;
-  }
-  
-  .modalPrivacyItem {
-    font-size: 14px;
-    line-height: 1.6;
-    color: #4e5968;
-    margin: 0 0 24px 0;
-  }
-  
-  .modalPrivacyItem strong {
-    color: #191f28;
-    font-weight: 600;
-    display: block;
-    margin-bottom: 8px;
-  }
-  
-  .privacyLink {
-    background: none;
-    border: none;
-    padding: 0;
-    color: var(--Blue-500);
-    text-decoration: underline;
-    cursor: pointer;
-    font-size: inherit;
-    font-family: inherit;
-  }
-  
-  /* 희망과정 선택 필드 */
-  .courseSelectField {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-    user-select: none;
-  }
+  min-width: 320px;
+  max-width: 640px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background-color: #fff;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
 
-  .coursePlaceholder {
-    color: #9CA3AF;
-    font-size: 16px;
-  }
+/* 헤더 */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 24px;
+  position: relative;
+  border-bottom: 1px solid #f2f4f6;
+  border-left: 1px solid #e5e5e5;
+  border-right: 1px solid #e5e5e5;
+}
 
-  .courseSelectedText {
-    color: #191f28;
-    font-size: 16px;
-  }
+.backButton {
+  position: absolute;
+  left: 24px;
+  width: 24px;
+  height: 24px;
+  aspect-ratio: 1/1;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  /* 희망과정 모달 */
-  .courseModalContent {
-    padding: 16px 24px 0;
-  }
+.backButton svg {
+  width: 100%;
+  height: 100%;
+}
 
-  .courseModalDesc {
-    font-size: 14px;
-    color: #6B7280;
-    margin: 0 0 16px 0;
-  }
+.logo {
+  height: 34px;
+  width: auto;
+}
 
-  .courseList {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
+.stepWrapper {
+  padding: 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid #e5e5e5;
+  border-right: 1px solid #e5e5e5;
+}
 
-  .courseItem {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding: 14px 16px;
-    border: 1.5px solid #E5E7EB;
-    border-radius: 12px;
-    background: #fff;
-    font-size: 16px;
-    color: #191f28;
-    cursor: pointer;
-    transition: all 0.15s ease;
-    text-align: left;
-  }
+/* 이미지 스타일 */
+.heroImage {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 0 0 20px 20px;
+}
 
-  .courseItem:active {
-    transform: scale(0.98);
-  }
+/* 텍스트 스타일 */
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 48px;
+  color: #191f28;
+  white-space: pre-line;
+}
 
-  .courseItemSelected {
-    border-color: #4C85FF;
-    background: #F0F5FF;
-    color: #4C85FF;
-    font-weight: 600;
-  }
+/* 입력 필드 */
+.inputGroup {
+  margin-bottom: 20px;
+  animation: fadeIn 0.5s ease;
+}
 
-  .customCourseWrapper {
-    margin-top: 16px;
-    padding-top: 16px;
-    border-top: 1px solid #f2f4f6;
-  }
+.inputLabel {
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  color: #4e5968;
+  margin-bottom: 8px;
+}
 
-  .customCourseLabel {
-    display: block;
-    font-size: 14px;
-    font-weight: 600;
-    color: #4e5968;
-    margin-bottom: 8px;
-  }
+.inputField {
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid #f2f4f6;
+  padding: 8px 0;
+  font-size: 16px;
+  transition: border-color 0.2s;
+}
 
-  .customCourseInput {
-    width: 100%;
-    padding: 12px 14px;
-    border: 1.5px solid #E5E7EB;
-    border-radius: 12px;
-    font-size: 15px;
-    color: #191f28;
-    transition: border-color 0.2s;
-    box-sizing: border-box;
-  }
+.inputField:focus {
+  outline: none;
+  border-bottom: 2px solid var(--Blue-500);
+  border-radius: 0;
+}
 
-  .customCourseInput:focus {
-    outline: none;
-    border-color: #4C85FF;
-  }
+.errorMessage {
+  color: #f04452;
+  font-size: 14px;
+  margin-top: 8px;
+  margin-bottom: 0;
+}
 
-  .customCourseInput::placeholder {
-    color: #9CA3AF;
-  }
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  color: #191f28;
+  cursor: pointer;
+  user-select: none;
+}
 
-  .courseModalFooter {
-    padding: 16px 24px 24px;
-  }
+.checkbox {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: var(--Blue-500);
+}
 
-  .courseConfirmButton {
-    width: 100%;
-    height: 52px;
-    background-color: #4C85FF;
-    color: #fff;
-    border: none;
-    border-radius: 14px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
+.radioGroup {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  padding: 8px 0;
+}
 
-  .courseConfirmButton:disabled {
-    background-color: #f2f4f6;
-    color: #b0b8c1;
-    cursor: not-allowed;
-  }
+.radioLabel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  color: #191f28;
+  cursor: pointer;
+  user-select: none;
+}
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+.radio {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: var(--Blue-500);
+}
+
+/* 버튼 */
+.bottomButton {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 48px);
+  max-width: 592px;
+  height: 56px;
+  background-color: var(--Blue-500);
+  color: #fff;
+  border: none;
+  border-radius: 16px;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.bottomButton:disabled {
+  background-color: #f2f4f6;
+  color: #b0b8c1;
+  cursor: not-allowed;
+}
+
+/* 기능 리스트 */
+.featureList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 48px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.featureIcon {
+  width: 24px;
+  height: 24px;
+  aspect-ratio: 1/1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.featureIcon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.featureText {
+  font-size: 18px;
+  font-weight: 500;
+  color: #191f28;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* 개인정보처리방침 모달 */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 24px;
+}
+
+.modalPrivacy {
+  background-color: #fff;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.modalPrivacyHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px;
+  border-bottom: 1px solid #f2f4f6;
+}
+
+.modalPrivacyTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: #191f28;
+  margin: 0;
+}
+
+.modalCloseButton {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #4e5968;
+  padding: 0;
+}
+
+.modalPrivacyContent {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.modalPrivacyScroll {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.modalPrivacyItem {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #4e5968;
+  margin: 0 0 24px 0;
+}
+
+.modalPrivacyItem strong {
+  color: #191f28;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.privacyLink {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--Blue-500);
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+/* 희망과정 선택 필드 */
+.courseSelectField {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+}
+
+.coursePlaceholder {
+  color: #9ca3af;
+  font-size: 16px;
+}
+
+.courseSelectedText {
+  color: #191f28;
+  font-size: 16px;
+}
+
+/* 희망과정 모달 */
+.courseModalContent {
+  padding: 16px 24px 0;
+}
+
+.courseModalDesc {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0 0 16px 0;
+}
+
+.courseList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.courseItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 14px 16px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 12px;
+  background: #fff;
+  font-size: 16px;
+  color: #191f28;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: left;
+}
+
+.courseItem:active {
+  transform: scale(0.98);
+}
+
+.courseItemSelected {
+  border-color: #4c85ff;
+  background: #f0f5ff;
+  color: #4c85ff;
+  font-weight: 600;
+}
+
+.customCourseWrapper {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #f2f4f6;
+}
+
+.customCourseLabel {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #4e5968;
+  margin-bottom: 8px;
+}
+
+.customCourseInput {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 12px;
+  font-size: 15px;
+  color: #191f28;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.customCourseInput:focus {
+  outline: none;
+  border-color: #4c85ff;
+}
+
+.customCourseInput::placeholder {
+  color: #9ca3af;
+}
+
+.courseModalFooter {
+  padding: 16px 24px 24px;
+}
+
+.courseConfirmButton {
+  width: 100%;
+  height: 52px;
+  background-color: #4c85ff;
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.courseConfirmButton:disabled {
+  background-color: #f2f4f6;
+  color: #b0b8c1;
+  cursor: not-allowed;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 로고 컨테이너 */
+.logoContainer {
+  display: flex;
+  align-items: center;
+}
+
+/* Step 1 타이틀 */
+.step1Title {
+  text-align: left;
+  margin-bottom: 24px;
+}
+
+.step1TitleText {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.step1Heading {
+  margin-bottom: 36px;
+}
+
+.step1HeadingText {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.3;
+}
+
+.step1CallText {
+  color: var(--Atomic-Blue-600, #0049e5);
+  font-family: Pretendard;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 21.6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.step1CallIcon {
+  margin-right: 4px;
+}
+
+/* 프로그레스 바 */
+.progressContainer {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.progressBarTrack {
+  height: 4px;
+  background-color: #e5e7eb;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progressBarFill {
+  height: 100%;
+  background-color: #4c85ff;
+  transition: width 0.3s ease;
+}
+
+.progressText {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #6b7280;
+  text-align: right;
+}
+
+/* Step 2 타이틀 */
+.step2Title {
+  text-align: left;
+  margin-bottom: 24px;
+}
+
+.step2TitleText {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+/* Step 3 완료 화면 */
+.step3Container {
+  text-align: center;
+  justify-content: center;
+}
+
+.step3Image {
+  margin: 0 auto 24px;
+}
+
+/* 로딩 스피너 */
+.loadingContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}

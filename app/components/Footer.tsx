@@ -1,9 +1,17 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import styles from './Footer.module.css';
 
 export default function Footer() {
+  const pathname = usePathname();
+
+  // 관리자 페이지에서는 푸터 숨기기
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
+
   return (
     <footer className={styles.footer}>
       <div className={styles.footerContent}>

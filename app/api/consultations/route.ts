@@ -57,7 +57,25 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { name, contact, education, hope_course, reason, click_source, is_manual_entry, residence } = body;
+    const {
+      name,
+      contact,
+      type,
+      progress,
+      practice_place,
+      employment_consulting,
+      employment_connection,
+      employment_after_cert,
+      student_status,
+      education,
+      hope_course,
+      reason,
+      click_source,
+      is_manual_entry,
+      residence,
+      study_method,
+      address,
+    } = body;
 
     // 유효성 검사 - 이름과 연락처만 필수
     if (!name || !contact) {
@@ -74,11 +92,20 @@ export async function POST(request: NextRequest) {
         {
           name,
           contact,
+          type: type || 'consultation',
+          progress: progress || null,
+          practice_place: practice_place || null,
+          employment_consulting: employment_consulting || false,
+          employment_connection: employment_connection || false,
+          employment_after_cert: employment_after_cert || null,
+          student_status: student_status || '상담대기',
           education: education || null,
           hope_course: hope_course || null,
           reason: reason || null,
           click_source: click_source || null,
           residence: residence || null,
+          study_method: study_method || null,
+          address: address || null,
           status: '상담대기', // 기본 상태
         },
       ])
@@ -287,7 +314,30 @@ export async function PATCH(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { id, is_completed, notes, status, memo, name, contact, education, reason, click_source, subject_cost, manager, residence } = body;
+    const {
+      id,
+      is_completed,
+      notes,
+      status,
+      memo,
+      name,
+      contact,
+      type,
+      progress,
+      practice_place,
+      employment_consulting,
+      employment_connection,
+      employment_after_cert,
+      student_status,
+      education,
+      reason,
+      click_source,
+      subject_cost,
+      manager,
+      residence,
+      study_method,
+      address,
+    } = body;
 
     if (!id) {
       return NextResponse.json({ error: 'ID is required' }, { status: 400 });
@@ -301,12 +351,21 @@ export async function PATCH(request: NextRequest) {
       memo?: string;
       name?: string;
       contact?: string;
+      type?: string;
+      progress?: string | null;
+      practice_place?: string | null;
+      employment_consulting?: boolean;
+      employment_connection?: boolean;
+      employment_after_cert?: string | null;
+      student_status?: string | null;
       education?: string | null;
       reason?: string | null;
       click_source?: string | null;
       subject_cost?: number | null;
       manager?: string | null;
       residence?: string | null;
+      study_method?: string | null;
+      address?: string | null;
     } = {};
 
     if (typeof is_completed === 'boolean') {
@@ -340,6 +399,34 @@ export async function PATCH(request: NextRequest) {
       updateData.contact = contact;
     }
 
+    if (type !== undefined) {
+      updateData.type = type;
+    }
+
+    if (progress !== undefined) {
+      updateData.progress = progress || null;
+    }
+
+    if (practice_place !== undefined) {
+      updateData.practice_place = practice_place || null;
+    }
+
+    if (employment_consulting !== undefined) {
+      updateData.employment_consulting = employment_consulting;
+    }
+
+    if (employment_connection !== undefined) {
+      updateData.employment_connection = employment_connection;
+    }
+
+    if (employment_after_cert !== undefined) {
+      updateData.employment_after_cert = employment_after_cert || null;
+    }
+
+    if (student_status !== undefined) {
+      updateData.student_status = student_status || null;
+    }
+
     if (education !== undefined) {
       updateData.education = education || null;
     }
@@ -361,6 +448,14 @@ export async function PATCH(request: NextRequest) {
     }
     if (residence !== undefined) {
       updateData.residence = residence || null;
+    }
+
+    if (study_method !== undefined) {
+      updateData.study_method = study_method || null;
+    }
+
+    if (address !== undefined) {
+      updateData.address = address || null;
     }
 
     if (Object.keys(updateData).length === 0) {
