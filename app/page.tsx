@@ -275,40 +275,7 @@ function StepFlowContent({ clickSource }: { clickSource: string }) {
                   </div>
                 </div>
                 <div className={styles.infoSection}>
-                  <div className={styles.infoInner}>
-                    <div className={styles.step1Heading}>
-                      <h1 className={styles.step1HeadingText}>
-                        학점 연계 신청
-                      </h1>
-                    </div>
-
-                    <div className={styles.infoCall}>
-                      <span className={styles.step1CallText}>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          className={styles.step1CallIcon}
-                        >
-                          <path
-                            fillRule="evenodd"
-                            clipRule="evenodd"
-                            d="M16.7045 21.9824C15.2645 21.9294 11.1835 21.3654 6.90947 17.0924C2.63647 12.8184 2.07347 8.73837 2.01947 7.29737C1.93947 5.10137 3.62147 2.96837 5.56447 2.13537C5.79844 2.03433 6.05467 1.99587 6.308 2.02374C6.56133 2.05162 6.80305 2.14488 7.00947 2.29437C8.60947 3.46037 9.71346 5.22437 10.6615 6.61137C10.87 6.9161 10.9592 7.28691 10.912 7.65316C10.8648 8.01941 10.6845 8.35549 10.4055 8.59737L8.45446 10.0464C8.36021 10.1144 8.29386 10.2144 8.26774 10.3277C8.24162 10.441 8.25752 10.5599 8.31246 10.6624C8.75447 11.4654 9.54046 12.6614 10.4405 13.5614C11.3405 14.4614 12.5935 15.2994 13.4525 15.7914C13.5602 15.8518 13.6869 15.8687 13.8067 15.8386C13.9265 15.8085 14.0302 15.7336 14.0965 15.6294L15.3665 13.6964C15.6 13.3862 15.9444 13.1784 16.3276 13.1165C16.7109 13.0547 17.1032 13.1435 17.4225 13.3644C18.8295 14.3384 20.4715 15.4234 21.6735 16.9624C21.8351 17.1703 21.9379 17.4178 21.9712 17.679C22.0044 17.9402 21.9669 18.2056 21.8625 18.4474C21.0255 20.4004 18.9075 22.0634 16.7045 21.9824Z"
-                            fill="#0049E5"
-                          />
-                        </svg>
-                        빠른 문의:{" "}
-                        <a
-                          href="tel:0221354951"
-                          className={styles.infoCallLink}
-                        >
-                          02-2135-4951
-                        </a>
-                      </span>
-                    </div>
-                  </div>
+                  <div className={styles.infoInner}></div>
                   <button
                     className={styles.bottomButton}
                     onClick={() => setStep(2)}
