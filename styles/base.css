@@ -3,6 +3,8 @@
  * 기본 스타일 및 리셋
  */
 
+@import './tokens.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -31,9 +33,6 @@
     --radius: 0.5rem;
   }
 }
-
-@import './normalize.css';
-@import './tokens.css';
 
 /* ============================================
    Root & Body

@@ -75,6 +75,11 @@ export async function POST(request: NextRequest) {
       residence,
       study_method,
       address,
+      service_practice,
+      service_employment,
+      practice_planned_date,
+      employment_hope_time,
+      employment_support_fund,
     } = body;
 
     // 유효성 검사 - 이름과 연락처만 필수
@@ -106,6 +111,11 @@ export async function POST(request: NextRequest) {
           residence: residence || null,
           study_method: study_method || null,
           address: address || null,
+          service_practice: service_practice || false,
+          service_employment: service_employment || false,
+          practice_planned_date: practice_planned_date || null,
+          employment_hope_time: employment_hope_time || null,
+          employment_support_fund: employment_support_fund ?? null,
           status: '상담대기', // 기본 상태
         },
       ])
