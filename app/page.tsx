@@ -5,6 +5,7 @@ import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import styles from "./stepflow.module.css";
+import { privacyData } from "./privacy/privacyData";
 
 const formatClickSource = (
   utmSource: string,
@@ -111,9 +112,11 @@ function StepFlowContent({ clickSource }: { clickSource: string }) {
     return true;
   };
 
-  // 실습예정일 6자리 숫자만 허용
+  // 실습예정일 20XX-MM 형식
   const formatPracticeDate = (value: string) => {
-    return value.replace(/[^0-9]/g, "").slice(0, 6);
+    const digits = value.replace(/[^0-9]/g, "").slice(0, 6);
+    if (digits.length <= 4) return digits;
+    return `${digits.slice(0, 4)}-${digits.slice(4)}`;
   };
 
   // 데이터 저장
@@ -168,7 +171,7 @@ function StepFlowContent({ clickSource }: { clickSource: string }) {
     !contactError &&
     (formData.service_practice || formData.service_employment) &&
     (!formData.service_practice ||
-      formData.practice_planned_date.length === 6) &&
+      formData.practice_planned_date.length === 7) &&
     formData.employment_hope_time.length > 0 &&
     formData.employment_support_fund !== "" &&
     privacyAgreed;
@@ -244,14 +247,12 @@ function StepFlowContent({ clickSource }: { clickSource: string }) {
                   <span>실습</span>
                   <input
                     type="checkbox"
-                    checked={formData.service_practice}
-                    onChange={(e) =>
+                    checked={formData.service_practice && !formData.service_employment}
+                    onChange={() =>
                       setFormData({
                         ...formData,
-                        service_practice: e.target.checked,
-                        practice_planned_date: e.target.checked
-                          ? formData.practice_planned_date
-                          : "",
+                        service_practice: true,
+                        service_employment: false,
                       })
                     }
                     className={styles.checkbox}
@@ -261,11 +262,13 @@ function StepFlowContent({ clickSource }: { clickSource: string }) {
                   <span>취업</span>
                   <input
                     type="checkbox"
-                    checked={formData.service_employment}
-                    onChange={(e) =>
+                    checked={formData.service_employment && !formData.service_practice}
+                    onChange={() =>
                       setFormData({
                         ...formData,
-                        service_employment: e.target.checked,
+                        service_practice: false,
+                        service_employment: true,
+                        practice_planned_date: "",
                       })
                     }
                     className={styles.checkbox}
@@ -276,14 +279,11 @@ function StepFlowContent({ clickSource }: { clickSource: string }) {
                   <input
                     type="checkbox"
                     checked={formData.service_practice && formData.service_employment}
-                    onChange={(e) =>
+                    onChange={() =>
                       setFormData({
                         ...formData,
-                        service_practice: e.target.checked,
-                        service_employment: e.target.checked,
-                        practice_planned_date: e.target.checked
-                          ? formData.practice_planned_date
-                          : "",
+                        service_practice: true,
+                        service_employment: true,
                       })
                     }
                     className={styles.checkbox}
@@ -302,7 +302,7 @@ function StepFlowContent({ clickSource }: { clickSource: string }) {
                 <label className={styles.inputLabel}>실습 예정일</label>
                 <input
                   type="text"
-                  placeholder="6자리 숫자 형식으로 입력해주세요 (ex. 820412)"
+                  placeholder="예: 2025-03"
                   className={styles.inputField}
                   value={formData.practice_planned_date}
                   onChange={(e) =>
@@ -311,7 +311,7 @@ function StepFlowContent({ clickSource }: { clickSource: string }) {
                       practice_planned_date: formatPracticeDate(e.target.value),
                     })
                   }
-                  maxLength={6}
+                  maxLength={7}
                   inputMode="numeric"
                 />
               </motion.div>
@@ -481,30 +481,16 @@ function StepFlowContent({ clickSource }: { clickSource: string }) {
             </div>
             <div className={styles.modalPrivacyContent}>
               <div className={styles.modalPrivacyScroll}>
+                {privacyData.map((item) => (
+                  <p key={item.id} className={styles.modalPrivacyItem} style={{ whiteSpace: "pre-line" }}>
+                    <strong>{item.title}</strong>
+                    {"\n"}
+                    {item.content}
+                  </p>
+                ))}
                 <p className={styles.modalPrivacyItem}>
-                  <strong>1. 개인정보 수집 및 이용 목적</strong>
-                  <br />
-                  사회복지사 자격 취득 상담 진행, 문의사항 응대
-                  <br />
-                  개인정보는 상담 서비스 제공을 위한 목적으로만 수집 및
-                  이용되며, 동의 없이 제3자에게 제공되지 않습니다
-                </p>
-                <p className={styles.modalPrivacyItem}>
-                  <strong>2. 수집 및 이용하는 개인정보 항목</strong>
-                  <br />
-                  필수 - 이름, 연락처
-                </p>
-                <p className={styles.modalPrivacyItem}>
-                  <strong>3. 보유 및 이용 기간</strong>
-                  <br />
-                  법령이 정하는 경우를 제외하고는 수집일로부터 1년 또는 동의
-                  철회 시까지 보유 및 이용합니다.
-                </p>
-                <p className={styles.modalPrivacyItem}>
-                  <strong>4. 동의 거부 권리</strong>
-                  <br />
-                  신청자는 동의를 거부할 권리가 있습니다. 단, 동의를 거부하는
-                  경우 상담 서비스 이용이 제한됩니다.
+                  <strong>공고일자:</strong> 2026년 1월 29일<br />
+                  <strong>시행일자:</strong> 2026년 1월 29일
                 </p>
               </div>
             </div>

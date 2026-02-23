@@ -155,6 +155,12 @@
   margin-bottom: 8px;
 }
 
+.inputLabel::after {
+  content: " *";
+  color: #f04452;
+  font-weight: 700;
+}
+
 .inputField {
   width: 100%;
   border: none;

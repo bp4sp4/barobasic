@@ -37,9 +37,7 @@ export default function Footer() {
               개인정보처리방침
             </Link>
           </div>
-          <p className={styles.copyright}>
-            2026 © BaroCompany (KORHRD Partners). All rights reserved.
-          </p>
+          <p className={styles.copyright}>2026 © KORHRD All rights reserved.</p>
         </div>
       </div>
     </footer>
