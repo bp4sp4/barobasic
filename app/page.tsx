@@ -129,13 +129,18 @@ function StepFlowContent({ clickSource }: { clickSource: string }) {
         service_practice: formData.service_practice,
         service_employment: formData.service_employment,
         practice_planned_date: formData.service_practice
-          ? formData.practice_planned_date
+          ? formData.practice_planned_date.replace("-", "")
           : null,
         employment_hope_time: formData.employment_hope_time,
         employment_support_fund: formData.employment_support_fund === "희망함",
         privacy_agreed: privacyAgreed,
         click_source: clickSource,
-        type: "취업연계",
+        type:
+          formData.service_practice && formData.service_employment
+            ? "실습+취업"
+            : formData.service_practice
+            ? "실습"
+            : "취업",
       };
 
       const response = await fetch("/api/consultations", {
