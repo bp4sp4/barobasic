@@ -27,7 +27,7 @@ const formatClickSource = (
   };
 
   const shortSource = sourceMap[utmSource] || utmSource;
-  const homepageName = "취업상담신청";
+  const homepageName = "상담신청";
 
   if (blogId) {
     return `${homepageName}_${shortSource}_${blogId}`;
@@ -502,7 +502,7 @@ function StepFlowContent({ clickSource }: { clickSource: string }) {
 }
 
 export default function StepFlowPage() {
-  const [clickSource, setClickSource] = useState<string>("취업상담신청");
+  const [clickSource, setClickSource] = useState<string>("상담신청");
 
   return (
     <Suspense
