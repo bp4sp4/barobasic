@@ -180,7 +180,7 @@
 .checkboxLabel {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 6px;
   font-size: 16px;
   color: #191f28;
   cursor: pointer;
@@ -196,7 +196,9 @@
 
 .radioGroup {
   display: flex;
-  gap: 24px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 16px;
   align-items: center;
   padding: 8px 0;
 }
@@ -204,8 +206,9 @@
 .radioLabel {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   font-size: 16px;
+  line-height: 1;
   color: #191f28;
   cursor: pointer;
   user-select: none;
@@ -216,6 +219,8 @@
   height: 20px;
   cursor: pointer;
   accent-color: var(--Blue-500);
+  flex-shrink: 0;
+  margin: 0;
 }
 
 /* 버튼 */

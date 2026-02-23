@@ -129,8 +129,7 @@ function StepFlowContent({ clickSource }: { clickSource: string }) {
           ? formData.practice_planned_date
           : null,
         employment_hope_time: formData.employment_hope_time,
-        employment_support_fund:
-          formData.employment_support_fund === "희망함",
+        employment_support_fund: formData.employment_support_fund === "희망함",
         privacy_agreed: privacyAgreed,
         click_source: clickSource,
         type: "취업연계",
@@ -200,7 +199,7 @@ function StepFlowContent({ clickSource }: { clickSource: string }) {
             className={styles.stepWrapper}
           >
             <div className={styles.step2Title}>
-              <h1 className={styles.step2TitleText}>취업 상담 신청</h1>
+              <h1 className={styles.step2TitleText}>상담 신청</h1>
             </div>
 
             {/* 이름 */}
@@ -242,6 +241,7 @@ function StepFlowContent({ clickSource }: { clickSource: string }) {
               <label className={styles.inputLabel}>희망 신청 서비스</label>
               <div className={styles.radioGroup}>
                 <label className={styles.checkboxLabel}>
+                  <span>실습</span>
                   <input
                     type="checkbox"
                     checked={formData.service_practice}
@@ -256,9 +256,9 @@ function StepFlowContent({ clickSource }: { clickSource: string }) {
                     }
                     className={styles.checkbox}
                   />
-                  <span>실습</span>
                 </label>
                 <label className={styles.checkboxLabel}>
+                  <span>취업</span>
                   <input
                     type="checkbox"
                     checked={formData.service_employment}
@@ -270,7 +270,24 @@ function StepFlowContent({ clickSource }: { clickSource: string }) {
                     }
                     className={styles.checkbox}
                   />
-                  <span>취업</span>
+                </label>
+                <label className={styles.checkboxLabel}>
+                  <span>실습 + 취업</span>
+                  <input
+                    type="checkbox"
+                    checked={formData.service_practice && formData.service_employment}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        service_practice: e.target.checked,
+                        service_employment: e.target.checked,
+                        practice_planned_date: e.target.checked
+                          ? formData.practice_planned_date
+                          : "",
+                      })
+                    }
+                    className={styles.checkbox}
+                  />
                 </label>
               </div>
             </div>
@@ -306,6 +323,7 @@ function StepFlowContent({ clickSource }: { clickSource: string }) {
               <div className={styles.radioGroup}>
                 {["바로 취업", "3개월 준비", "6개월 준비"].map((option) => (
                   <label key={option} className={styles.radioLabel}>
+                    <span>{option}</span>
                     <input
                       type="radio"
                       name="employment_hope_time"
@@ -319,7 +337,6 @@ function StepFlowContent({ clickSource }: { clickSource: string }) {
                       }
                       className={styles.radio}
                     />
-                    <span>{option}</span>
                   </label>
                 ))}
               </div>
@@ -330,6 +347,7 @@ function StepFlowContent({ clickSource }: { clickSource: string }) {
               <label className={styles.inputLabel}>취업지원금 희망여부</label>
               <div className={styles.radioGroup}>
                 <label className={styles.radioLabel}>
+                  <span>희망함</span>
                   <input
                     type="radio"
                     name="employment_support_fund"
@@ -345,9 +363,9 @@ function StepFlowContent({ clickSource }: { clickSource: string }) {
                     }
                     className={styles.radio}
                   />
-                  <span>희망함</span>
                 </label>
                 <label className={styles.radioLabel}>
+                  <span>희망하지 않음</span>
                   <input
                     type="radio"
                     name="employment_support_fund"
@@ -365,7 +383,6 @@ function StepFlowContent({ clickSource }: { clickSource: string }) {
                     }
                     className={styles.radio}
                   />
-                  <span>희망하지 않음</span>
                 </label>
               </div>
             </div>
