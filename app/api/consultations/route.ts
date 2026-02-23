@@ -245,11 +245,19 @@ export async function POST(request: NextRequest) {
                 },
                 {
                   type: 'mrkdwn',
-                  text: `*학력:*\n${education || '미입력'}`,
+                  text: `*희망서비스:*\n${service_practice && service_employment ? '실습 + 취업' : service_practice ? '실습' : service_employment ? '취업' : '미입력'}`,
                 },
                 {
                   type: 'mrkdwn',
-                  text: `*희망과정:*\n${hope_course || '미입력'}`,
+                  text: `*실습예정일:*\n${practice_planned_date || '해당없음'}`,
+                },
+                {
+                  type: 'mrkdwn',
+                  text: `*취업희망시기:*\n${employment_hope_time || '미입력'}`,
+                },
+                {
+                  type: 'mrkdwn',
+                  text: `*취업지원금:*\n${employment_support_fund === true ? '희망함' : employment_support_fund === false ? '희망하지 않음' : '미입력'}`,
                 },
                 {
                   type: 'mrkdwn',

@@ -135,12 +135,7 @@ function StepFlowContent({ clickSource }: { clickSource: string }) {
         employment_support_fund: formData.employment_support_fund === "희망함",
         privacy_agreed: privacyAgreed,
         click_source: clickSource,
-        type:
-          formData.service_practice && formData.service_employment
-            ? "실습+취업"
-            : formData.service_practice
-            ? "실습"
-            : "취업",
+        type: "취업연계",
       };
 
       const response = await fetch("/api/consultations", {
