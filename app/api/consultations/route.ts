@@ -20,7 +20,7 @@ export async function GET() {
     }
 
     const { data, error } = await supabaseAdmin
-      \.from('practice_consultations')
+      .from('practice_consultations')
       .select('*')
       .order('created_at', { ascending: false });
 
@@ -92,7 +92,7 @@ export async function POST(request: NextRequest) {
 
     // Supabase에 데이터 저장
     const { data, error } = await supabaseAdmin
-      \.from('practice_consultations')
+      .from('practice_consultations')
       .insert([
         {
           name,
@@ -484,7 +484,7 @@ export async function PATCH(request: NextRequest) {
     }
 
     const { data, error } = await supabaseAdmin
-      \.from('practice_consultations')
+      .from('practice_consultations')
       .update(updateData)
       .eq('id', id)
       .select()
@@ -536,7 +536,7 @@ export async function DELETE(request: NextRequest) {
     }
 
     const { data, error } = await supabaseAdmin
-      \.from('practice_consultations')
+      .from('practice_consultations')
       .delete()
       .in('id', ids)
       .select();
